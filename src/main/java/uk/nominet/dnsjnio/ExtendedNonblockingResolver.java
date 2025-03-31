@@ -4,11 +4,15 @@ import org.xbill.DNS.*;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Executor;
+import java.util.stream.Collectors;
 
 /**
  * Copyright 2007 Nominet UK
@@ -318,6 +322,11 @@ public class ExtendedNonblockingResolver implements Resolver {
     }
 
     @Override
+    public void setEDNS(int version, int payloadSize, int flags, EDNSOption... options) {
+        Resolver.super.setEDNS(version, payloadSize, flags, options);
+    }
+
+    @Override
     public void setEDNS(int level, int payloadSize, int flags, List options) {
         for (int i = 0; i < resolvers.size(); i++) {
             ((Resolver) resolvers.get(i)).setEDNS(level, payloadSize,
@@ -344,6 +353,16 @@ public class ExtendedNonblockingResolver implements Resolver {
         setTimeout(secs, 0);
     }
 
+    @Override
+    public void setTimeout(Duration duration) {
+        setTimeout(duration.toSecondsPart(), duration.toMillisPart());
+    }
+
+    @Override
+    public Duration getTimeout() {
+        return Resolver.super.getTimeout();
+    }
+
     /**
      * Creates a new Extended Resolver. The default ResolverConfig is used to
      * determine the servers for which NonblockingResolver contexts should be
@@ -364,7 +383,8 @@ public class ExtendedNonblockingResolver implements Resolver {
 
     private ExtendedNonblockingResolver() throws UnknownHostException {
         resolvers = new ArrayList();
-        String[] servers = ResolverConfig.getCurrentConfig().servers();
+        String[] servers = ResolverConfig.getCurrentConfig().servers()
+                .stream().map(inet -> inet.getHostName()).collect(Collectors.toList()).toArray(new String[0]);
         if (servers != null) {
             for (String server : servers) {
                 NonblockingResolver r = new NonblockingResolver(server);
@@ -430,6 +450,16 @@ public class ExtendedNonblockingResolver implements Resolver {
         } else {
             return response.getMessage();
         }
+    }
+
+    @Override
+    public CompletionStage<Message> sendAsync(Message query) {
+        return Resolver.super.sendAsync(query);
+    }
+
+    @Override
+    public CompletionStage<Message> sendAsync(Message query, Executor executor) {
+        return Resolver.super.sendAsync(query, executor);
     }
 
     /**

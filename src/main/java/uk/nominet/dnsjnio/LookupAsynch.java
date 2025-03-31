@@ -234,7 +234,7 @@ public final class LookupAsynch {
         } catch (UnknownHostException e) {
             throw new RuntimeException("Failed to initialize resolver");
         }
-        defaultSearchPath = ResolverConfig.getCurrentConfig().searchPath();
+        defaultSearchPath = ResolverConfig.getCurrentConfig().searchPath().toArray(new Name[0]);
         defaultCaches = new HashMap();
     }
 
@@ -580,15 +580,13 @@ public final class LookupAsynch {
 
     private LookupContinuation processResponse(Name name, SetResponse response) {
         if (response.isSuccessful()) {
-            RRset[] rrsets = response.answers();
+            RRset[] rrsets = response.answers().toArray(new RRset[0]);
             List l = new ArrayList();
             Iterator it;
             int i;
 
-            for (i = 0; i < rrsets.length; i++) {
-                it = rrsets[i].rrs();
-                while (it.hasNext())
-                    l.add(it.next());
+            for (RRset rrSet :  rrsets) {
+                l.addAll(rrSet.rrs());
             }
 
             result = SUCCESSFUL;

@@ -24,8 +24,12 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Executor;
+
 import org.apache.log4j.Logger;
 import org.xbill.DNS.*;
 
@@ -88,7 +92,7 @@ public class NonblockingResolver implements INonblockingResolver {
      * Creates a SimpleResolver that will query the specified host
      *
      * @param hostname The hostname of the DNS server to use. If the value is
-     * {@code null}, the {@link ResolverConfig#currentConfig} is checked. If the
+     * {@code null}, the ResolverConfig#currentConfig is checked. If the
      * value is found, it is used. If the value is not found,
      * <strong>localhost</strong> is used. It the value is "0", then the
      * <strong>localhost</strong> is used. Otherwise it will attempt to resolve
@@ -100,9 +104,9 @@ public class NonblockingResolver implements INonblockingResolver {
      */
     public NonblockingResolver(String hostname) throws UnknownHostException {
         if (hostname == null) {
-            hostname = ResolverConfig.getCurrentConfig().server();
-            if (hostname == null) {
-                hostname = defaultResolver;
+            hostname = defaultResolver;
+            if (ResolverConfig.getCurrentConfig().server() != null) {
+                hostname = ResolverConfig.getCurrentConfig().server().getHostName();
             }
         }
         InetAddress addr;
@@ -313,7 +317,12 @@ public class NonblockingResolver implements INonblockingResolver {
 
     @Override
     public void setEDNS(int level) {
-        setEDNS(level, 0, 0, null);
+        setEDNS(level, 0, 0, (List) null);
+    }
+
+    @Override
+    public void setEDNS(int version, int payloadSize, int flags, EDNSOption... options) {
+        INonblockingResolver.super.setEDNS(version, payloadSize, flags, options);
     }
 
     private void applyEDNS(Message query) {
@@ -346,13 +355,18 @@ public class NonblockingResolver implements INonblockingResolver {
     }
 
     @Override
+    public void setTimeout(Duration duration) {
+        setTimeout(duration.toSecondsPart(), duration.toMillisPart());
+    }
+
+    @Override
     public void setTimeout(int secs, int millisecs) {
-        timeoutValue = (secs * 1000) + millisecs;
+        timeoutValue = secs * 1000 + millisecs;
     }
 
     // For backwards compatability
-    int getTimeout() {
-        return timeoutValue / 1000;
+    public Duration getTimeout() {
+        return Duration.ofMillis(timeoutValue);
     }
 
     // For use by ENBR, but probably useful for clients! Not in standard Resolver interface, though
@@ -402,6 +416,16 @@ public class NonblockingResolver implements INonblockingResolver {
             }
         }
         return response.getMessage();
+    }
+
+    @Override
+    public CompletionStage<Message> sendAsync(Message query) {
+        return INonblockingResolver.super.sendAsync(query);
+    }
+
+    @Override
+    public CompletionStage<Message> sendAsync(Message query, Executor executor) {
+        return INonblockingResolver.super.sendAsync(query, executor);
     }
 
     /**
