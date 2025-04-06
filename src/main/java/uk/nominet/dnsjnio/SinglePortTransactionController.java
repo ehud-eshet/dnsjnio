@@ -35,8 +35,8 @@ import org.xbill.DNS.ResolverListener;
  * on a new port. When a query ends (response or timeout) then the numQueries
  * should be decremented and the Connection closed if numQueries == 0.
  *
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public class SinglePortTransactionController extends AbstractTransaction {

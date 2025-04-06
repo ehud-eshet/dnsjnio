@@ -30,8 +30,8 @@ import org.apache.log4j.Logger;
  * The superclass for the TCP and UDP connections. This class models a socket,
  * and is called by the client, and the DnsController NIO control loop.
  * 
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public abstract class Connection {

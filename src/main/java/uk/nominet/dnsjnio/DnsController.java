@@ -30,8 +30,8 @@ import org.apache.log4j.Logger;
  * created, which runs the select loop forever. A queue of invocations is kept
  * for the thread, and an outgoing queue is also instantiated. One DnsController
  * services all resolvers
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public class DnsController {

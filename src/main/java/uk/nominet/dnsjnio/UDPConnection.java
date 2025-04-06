@@ -28,8 +28,8 @@ import static uk.nominet.dnsjnio.NonblockingResolver.getNewInetSocketAddressWith
 /**
  * This class implements the UDP specific methods for the Connection superclass.
  *
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public class UDPConnection extends Connection {

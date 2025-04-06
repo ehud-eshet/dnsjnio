@@ -25,6 +25,7 @@ public class CompressTest {
     public void testUDPCompression() throws Exception {
         System.out.println("Test UDP Compression");
         NonblockingResolver resolver = new NonblockingResolver();
+        resolver.setTimeout(100);
         Name name = Name.fromString("000.COM", Name.root);
         Record question = Record.newRecord(name, Type.CNAME, DClass.ANY);
         Message query = Message.newQuery(question);
@@ -40,6 +41,7 @@ public class CompressTest {
     public void testTCPCompression() throws Exception {
         System.out.println("Test TCP Compression");
         NonblockingResolver resolver = new NonblockingResolver();
+        resolver.setTimeout(100);
         resolver.setTCP(true);
         Name name = Name.fromString("000.COM", Name.root);
         Record question = Record.newRecord(name, Type.CNAME, DClass.ANY);

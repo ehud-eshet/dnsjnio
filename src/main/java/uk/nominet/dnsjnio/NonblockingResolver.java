@@ -37,8 +37,8 @@ import org.xbill.DNS.*;
  * A nonblocking implementation of Resolver. Multiple concurrent sendAsync
  * queries can be run without increasing the number of threads.
  *
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public class NonblockingResolver implements INonblockingResolver {

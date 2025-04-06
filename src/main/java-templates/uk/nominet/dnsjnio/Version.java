@@ -19,8 +19,8 @@ package uk.nominet.dnsjnio;
 /**
  * The Version.java class is automatically generated templating-maven-plugin and
  * should not be modified.
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  */
 public final class Version {
 

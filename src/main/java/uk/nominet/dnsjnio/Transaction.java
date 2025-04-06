@@ -33,8 +33,8 @@ import org.xbill.DNS.TSIG;
  * response is truncated over UDP, will trigger a TCP retry with truncation not
  * set.
  *
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public class Transaction extends AbstractTransaction {

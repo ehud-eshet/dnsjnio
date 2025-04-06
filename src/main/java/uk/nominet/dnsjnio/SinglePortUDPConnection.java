@@ -24,8 +24,8 @@ import org.apache.log4j.Logger;
  * Single port UDP connection. The connection is set to be non-blocking, and
  * {@code SO_REUSEADDR} is set to reuse the port.
  * 
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public class SinglePortUDPConnection extends UDPConnection {

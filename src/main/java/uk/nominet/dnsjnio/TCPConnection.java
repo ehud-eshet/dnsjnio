@@ -26,8 +26,8 @@ import org.apache.log4j.Logger;
 /**
  * This class implements TCP-specific methods for the Connection superclass.
  *
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  * @author Allan O'Driscoll
  */
 public class TCPConnection extends Connection {

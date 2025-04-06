@@ -24,8 +24,8 @@ import org.xbill.DNS.*;
 /**
  *
  * Test that we can connect to a real server...
- * @author Alex Dalitz <alex@caerkettontech.com>
- * @author John Yeary <jyeary@bluelotussoftware.com>
+ * @author Alex Dalitz alex@caerkettontech.com
+ * @author John Yeary jyeary@bluelotussoftware.com
  */
 public class RemoteServerTest {
 
